@@ -1,578 +1,209 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ENGINEER GBP | Price Action Trading Mentorship — GBPUSD & GBPJPY</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- ═══════════ KORIATA ADD-ON ═══════════
+  PASTE THIS WHOLE BLOCK just above </body> in your original file (after your last </script>).
+  Nothing in your original code is changed. Run koriata-setup.sql in Supabase once. -->
 <style>
-:root{--ink:#0d0d0d;--cream:#faf7f2;--gold:#c9993a;--gold-light:#e8c97a;--deep:#1a1a2e;--muted:#6b6b6b;--border:#e0d8cc;--white:#fff}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5%;background:rgba(250,247,242,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-.logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
-.logo span{color:var(--gold)}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{text-decoration:none;color:var(--muted);font-size:.9rem;font-weight:500;transition:color .2s}
-.nav-links a:hover{color:var(--gold)}
-.nav-cta{background:var(--ink);color:var(--cream)!important;padding:.55rem 1.3rem;border-radius:4px}
-.nav-cta:hover{background:var(--gold);color:var(--white)!important}
-.hero{min-height:100vh;display:grid;place-items:center;padding:8rem 5% 5rem;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(201,153,58,.12) 0%,transparent 65%),radial-gradient(ellipse 40% 40% at 10% 80%,rgba(26,26,46,.06) 0%,transparent 60%)}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:1200px;width:100%;position:relative}
-.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,153,58,.12);border:1px solid rgba(201,153,58,.3);color:var(--gold);padding:.4rem 1rem;border-radius:50px;font-size:.8rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.5rem}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,4.2rem);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.5rem}
-.hero h1 em{font-style:italic;color:var(--gold)}
-.hero p{color:var(--muted);font-size:1.1rem;line-height:1.7;margin-bottom:2.5rem;max-width:480px}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-primary{background:var(--ink);color:var(--cream);padding:.85rem 2rem;border-radius:5px;text-decoration:none;font-weight:600;font-size:.95rem;transition:background .2s,transform .2s;display:inline-flex;align-items:center;gap:.5rem}
-.btn-primary:hover{background:var(--gold);transform:translateY(-2px)}
-.btn-outline{border:2px solid var(--border);color:var(--ink);padding:.85rem 2rem;border-radius:5px;text-decoration:none;font-weight:600;font-size:.95rem;transition:border-color .2s,transform .2s;display:inline-flex;align-items:center;gap:.5rem}
-.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
-.hero-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2.5rem;box-shadow:0 20px 60px rgba(0,0,0,.08);position:relative}
-.hero-card::before{content:'';position:absolute;top:-1px;left:2rem;right:2rem;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:0 0 4px 4px}
-.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;color:var(--ink)}
-.photo{height:190px;border-radius:12px;margin-bottom:1.2rem;background:linear-gradient(135deg,#f0e6d3,#e8d5b5);display:grid;place-items:center;font-size:3.2rem;overflow:hidden}
-.photo img{width:100%;height:100%;object-fit:cover}
-.style-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem}
-.style-chip{background:var(--gold);border:1px solid var(--gold);padding:.6rem 1rem;border-radius:8px;font-size:.85rem;font-weight:600;text-align:center;color:var(--white)}
-.card-stats{display:flex;gap:1rem;padding-top:1.5rem;border-top:1px solid var(--border)}
-.stat{text-align:center;flex:1}
-.stat-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--gold);display:block}
-.stat-label{font-size:.75rem;color:var(--muted);font-weight:500}
-.citation-banner{background:var(--deep);color:var(--cream);padding:1.2rem 5%;overflow:hidden}
-.ticker{display:flex;gap:4rem;white-space:nowrap;animation:ticker 25s linear infinite}
-.ticker-item{display:flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:500;opacity:.8}
-.ticker-item span{color:var(--gold-light);font-weight:700;font-size:1rem}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-section{padding:6rem 5%}
-.section-label{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.15;letter-spacing:-.02em;margin-bottom:1rem}
-.section-sub{color:var(--muted);font-size:1.05rem;line-height:1.7;max-width:560px}
-.section-header{margin-bottom:3.5rem}
-.services-bg{background:var(--white)}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto}
-.service-card{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:2rem;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden}
-.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transition:transform .25s}
-.service-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.1);border-color:var(--gold)}
-.service-card:hover::after{transform:scaleX(1)}
-.service-icon{width:48px;height:48px;background:rgba(201,153,58,.12);border-radius:10px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:1.2rem}
-.service-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.6rem}
-.service-card p{color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:.5rem}
-.service-card p b{color:var(--ink)}
-.citations-bg{background:var(--deep);color:var(--cream)}
-.citations-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto}
-.citation-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.8rem;transition:background .25s,border-color .25s,transform .25s}
-.citation-card:hover{background:rgba(201,153,58,.12);border-color:rgba(201,153,58,.4);transform:translateY(-4px)}
-.cite-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--gold);margin-bottom:.3rem}
-.cite-full{font-size:.8rem;opacity:.6;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.08em}
-.cite-desc{font-size:.9rem;line-height:1.6;opacity:.8}
-.cite-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
-.cite-tag{background:rgba(201,153,58,.2);color:var(--gold-light);padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:600}
-.process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;max-width:1100px;margin:0 auto;position:relative}
-.process-step{text-align:center;padding:1.5rem;position:relative}
-.step-num{width:56px;height:56px;background:var(--ink);color:var(--cream);border-radius:50%;display:grid;place-items:center;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;margin:0 auto 1.2rem;border:3px solid var(--gold)}
-.process-step h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.5rem}
-.process-step p{color:var(--muted);font-size:.9rem;line-height:1.6}
-.pricing-bg{background:var(--white)}
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
-.pricing-card{border:2px solid var(--border);border-radius:16px;padding:2.5rem;transition:transform .25s,box-shadow .25s}
-.pricing-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.1)}
-.pricing-card.featured{border-color:var(--gold);background:var(--ink);color:var(--cream);position:relative;text-align:left}
-.featured-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--white);padding:.3rem 1.2rem;border-radius:50px;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
-.plan-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.5rem}
-.plan-desc{font-size:.88rem;opacity:.65;margin-bottom:1.5rem}
-.plan-price{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:var(--gold);margin-bottom:1.5rem}
-.plan-price span{font-size:1rem;opacity:.6}
-.plan-features{list-style:none;margin-bottom:2rem}
-.plan-features li{padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.9rem;display:flex;align-items:center;gap:.6rem}
-.plan-features li::before{content:'✓';color:var(--gold);font-weight:700}
-.plan-btn{display:block;text-align:center;padding:.85rem;border-radius:8px;text-decoration:none;font-weight:700;font-size:.95rem;transition:all .2s;background:var(--gold);color:var(--white)}
-.plan-btn:hover{background:var(--gold-light)}
-.testimonials-bg{background:var(--cream)}
-.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
-.testimonial{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:2rem}
-.stars{color:var(--gold);font-size:1.1rem;margin-bottom:1rem}
-.testimonial p{color:var(--muted);font-size:.95rem;line-height:1.7;margin-bottom:1.2rem;font-style:italic}
-.reviewer{display:flex;align-items:center;gap:.8rem}
-.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--deep));display:grid;place-items:center;color:var(--white);font-weight:700;font-size:.95rem}
-.reviewer-name{font-weight:600;font-size:.9rem}
-.reviewer-role{font-size:.8rem;color:var(--muted)}
-.cta-section{background:var(--ink);color:var(--cream);text-align:center;padding:6rem 5%}
-.cta-section .section-title{color:var(--cream)}
-.cta-section .section-title em{color:var(--gold);font-style:italic}
-.cta-section p{color:rgba(250,247,242,.65);max-width:560px;margin:0 auto 2.5rem;font-size:1.05rem;line-height:1.7}
-.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;max-width:1000px;margin:0 auto;align-items:start}
-.contact-info h2{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin-bottom:1rem}
-.contact-info p{color:var(--muted);line-height:1.7;margin-bottom:2rem}
-.contact-item{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.2rem}
-.contact-icon{width:40px;height:40px;background:rgba(201,153,58,.12);border-radius:8px;display:grid;place-items:center;font-size:1.1rem;flex-shrink:0}
-.contact-item strong{display:block;font-weight:600;font-size:.9rem}
-.contact-item span,.contact-item a{font-size:.85rem;color:var(--muted)}
-.contact-form{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2.5rem}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.field{margin-bottom:1.2rem}
-.field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:.4rem;color:var(--ink)}
-.field input,.field select,.field textarea{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.9rem;background:var(--cream);color:var(--ink);transition:border-color .2s;outline:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
-.field textarea{resize:vertical;min-height:120px}
-.check{display:flex;gap:.6rem;align-items:flex-start;font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:1.2rem}
-.check input{margin-top:.25rem;accent-color:var(--gold)}
-.submit-btn{width:100%;padding:1rem;background:var(--ink);color:var(--cream);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background .2s,transform .2s}
-.submit-btn:hover{background:var(--gold);transform:translateY(-2px)}
-footer{background:var(--deep);color:var(--cream);padding:3rem 5% 1.5rem}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-footer .logo{color:var(--cream)}
-.footer-desc{color:rgba(255,255,255,.55);font-size:.9rem;line-height:1.7;margin-top:.8rem}
-.footer-col h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:1rem;color:var(--gold-light)}
-.footer-col ul{list-style:none}
-.footer-col li{margin-bottom:.6rem}
-.footer-col a{color:rgba(255,255,255,.55);text-decoration:none;font-size:.88rem;transition:color .2s}
-.footer-col a:hover{color:var(--gold-light)}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-bottom p{font-size:.82rem;color:rgba(255,255,255,.4)}
-.disclaimer{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.6;margin-bottom:1.2rem}
-@media(max-width:1024px){.hero-grid{gap:2.5rem}.footer-grid{grid-template-columns:1fr 1fr;gap:2rem}}
-@media(max-width:900px){nav{padding:1rem 4%}.nav-links{display:none}.hero-grid{grid-template-columns:1fr}.hero-card{display:none}.hero{padding:7rem 4% 4rem}.contact-grid{grid-template-columns:1fr;gap:2.5rem}.form-row{grid-template-columns:1fr}.process-grid{grid-template-columns:repeat(2,1fr)}.portfolio-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}section{padding:4.5rem 4%}.cta-section{padding:4.5rem 4%}.mobile-menu-btn{display:flex}}
-@media(max-width:640px){.logo{font-size:1.25rem}.hero{padding:6rem 4% 3rem;min-height:auto}.hero h1{font-size:2.2rem;letter-spacing:-.02em}.hero p{font-size:1rem}.hero-btns{flex-direction:column;gap:.75rem}.hero-btns a{text-align:center;justify-content:center}section{padding:3.5rem 4%}.cta-section{padding:3.5rem 4%}.section-title{font-size:1.8rem}.services-grid,.citations-grid,.portfolio-grid,.pricing-grid,.testimonials-grid{grid-template-columns:1fr;gap:1rem}.process-grid{grid-template-columns:1fr 1fr;gap:1rem}.footer-bottom{flex-direction:column;text-align:center}.cta-btns{flex-direction:column;align-items:center}.cta-btns a{width:100%;max-width:320px;text-align:center;justify-content:center}.contact-form{padding:1.5rem}.pricing-card{padding:1.8rem 1.4rem}.p-upload-row{flex-direction:column;align-items:flex-start}}
-.mobile-menu-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.3rem}
-.mobile-menu-btn span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s}
-.mobile-menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.mobile-menu-btn.open span:nth-child(2){opacity:0}
-.mobile-menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-nav{display:none;position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(250,247,242,.98);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:1.2rem 5%;flex-direction:column;gap:.2rem}
-.mobile-nav.open{display:flex}
-.mobile-nav a{text-decoration:none;color:var(--ink);font-size:1rem;font-weight:500;padding:.75rem 0;border-bottom:1px solid var(--border)}
-.mobile-nav a:hover{color:var(--gold)}
-.mobile-nav .m-cta{background:var(--ink);color:var(--cream)!important;padding:.75rem 1.5rem;border-radius:6px;text-align:center;margin-top:.5rem;border-bottom:none}
-.portfolio-bg{background:var(--white)}
-.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto}
-.portfolio-item{background:var(--cream);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .25s,box-shadow .25s}
-.portfolio-item:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.1)}
-.portfolio-thumb{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.thumb-overlay{position:absolute;inset:0;opacity:0;background:rgba(13,13,13,.7);display:flex;align-items:center;justify-content:center;transition:opacity .25s}
-.portfolio-item:hover .thumb-overlay{opacity:1}
-.thumb-overlay span{color:var(--white);font-size:.85rem;font-weight:700;border:2px solid var(--gold);padding:.4rem 1rem;border-radius:50px;cursor:pointer}
-.thumb-overlay span:hover{background:var(--gold)}
-.thumb-emoji{font-size:3rem}
-.portfolio-body{padding:1.4rem}
-.p-type{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
-.portfolio-body h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:.5rem;line-height:1.3}
-.portfolio-body p{font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
-.p-tags{display:flex;gap:.4rem;flex-wrap:wrap}
-.p-tag{background:rgba(201,153,58,.1);color:var(--gold);padding:.2rem .65rem;border-radius:50px;font-size:.75rem;font-weight:600}
-.p-upload-row{display:flex;align-items:center;gap:.6rem;margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--border);flex-wrap:wrap}
-.p-upload-status{font-size:.78rem;color:var(--muted);flex:1;min-width:100px}
-.p-upload-status.ready{color:#2d7a4f;font-weight:600}
-.p-upload-btn{background:var(--ink);color:var(--cream);border:none;border-radius:6px;padding:.4rem .9rem;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .2s;white-space:nowrap}
-.p-upload-btn:hover{background:var(--gold)}
-.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-.fade-in.visible{opacity:1;transform:translateY(0)}
-.admin-fab{position:fixed;bottom:2rem;right:2rem;z-index:998;background:var(--deep);color:var(--gold-light);border:2px solid var(--gold);border-radius:50px;padding:.6rem 1.2rem;font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:.5rem;box-shadow:0 4px 20px rgba(0,0,0,.3);transition:background .2s,transform .2s;font-family:'DM Sans',sans-serif}
-.admin-fab:hover{background:var(--gold);color:var(--white);transform:translateY(-2px)}
-#adminPanel{display:none;position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.75);align-items:flex-start;justify-content:flex-end}
-.admin-sidebar{background:var(--deep);color:var(--cream);width:420px;max-width:96vw;height:100vh;overflow-y:auto;display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,.4)}
-.admin-header{padding:1.3rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);flex-shrink:0}
-.admin-header h2{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;color:var(--gold-light)}
-.admin-close{background:none;border:none;color:rgba(255,255,255,.5);font-size:1.3rem;cursor:pointer}
-.admin-close:hover{color:var(--white)}
-.admin-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0}
-.admin-tab{flex:1;padding:.8rem;text-align:center;font-size:.8rem;font-weight:700;cursor:pointer;color:rgba(255,255,255,.45);border:none;border-bottom:2px solid transparent;transition:all .2s;font-family:'DM Sans',sans-serif;background:none}
-.admin-tab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
-.admin-tab:hover{color:var(--gold-light)}
-.admin-body{flex:1;overflow-y:auto;padding:1.4rem 1.5rem}
-.admin-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.4rem}
-.admin-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;text-align:center}
-.admin-stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--gold);display:block}
-.admin-stat-label{font-size:.74rem;color:rgba(255,255,255,.45);margin-top:.2rem}
-.admin-section-title{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
-.visitor-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:.85rem 1rem;margin-bottom:.6rem;display:flex;align-items:flex-start;gap:.8rem}
-.visitor-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--deep));display:grid;place-items:center;font-size:.78rem;font-weight:700;flex-shrink:0;color:var(--white)}
-.visitor-info{flex:1;min-width:0}
-.visitor-name{font-size:.86rem;font-weight:600;color:var(--cream)}
-.visitor-meta{font-size:.74rem;color:rgba(255,255,255,.4);margin-top:.15rem}
-.visitor-time{font-size:.7rem;color:rgba(255,255,255,.28);white-space:nowrap}
-.msg-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:1rem;margin-bottom:.8rem;cursor:pointer}
-.msg-item.unread{border-color:rgba(201,153,58,.35);background:rgba(201,153,58,.06)}
-.msg-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.4rem}
-.msg-from{font-size:.86rem;font-weight:700;color:var(--cream)}
-.msg-time{font-size:.7rem;color:rgba(255,255,255,.3)}
-.msg-subject{font-size:.77rem;color:var(--gold-light);margin-bottom:.35rem;font-weight:600}
-.msg-body{font-size:.81rem;color:rgba(255,255,255,.55);line-height:1.5}
-.msg-unread-dot{display:inline-block;width:7px;height:7px;background:var(--gold);border-radius:50%;margin-right:.4rem;vertical-align:middle}
-.admin-empty{text-align:center;padding:2.5rem 1rem;color:rgba(255,255,255,.3)}
-.admin-empty div:first-child{font-size:2.2rem;margin-bottom:.5rem}
-.admin-pin-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%;padding:3rem 2rem;gap:1rem;text-align:center}
-.admin-pin-wrap h3{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:800;color:var(--gold-light)}
-.admin-pin-wrap p{font-size:.83rem;color:rgba(255,255,255,.45);max-width:260px}
-.pin-input,.acc-input{width:100%;max-width:300px;padding:.8rem 1rem;text-align:center;border:1.5px solid rgba(255,255,255,.15);border-radius:8px;background:rgba(255,255,255,.07);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:1.05rem;outline:none}
-.pin-input{letter-spacing:.25em;font-size:1.1rem}
-.pin-input:focus,.acc-input:focus{border-color:var(--gold)}
-.pin-btn{width:100%;max-width:300px;padding:.8rem;background:var(--gold);color:var(--white);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:background .2s}
-.pin-btn:hover{background:var(--gold-light)}
-.pin-error{color:#e74c3c;font-size:.8rem;display:none}
-.wa-bubble{position:fixed;bottom:2rem;left:2rem;z-index:997;background:#25d366;color:#fff;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .2s}
-.wa-bubble:hover{transform:scale(1.1)}
-.msg-section{background:var(--deep);color:var(--cream);padding:5rem 5%}
-.msg-inner{max-width:660px;margin:0 auto;text-align:center}
-.msg-inner .section-label{color:var(--gold-light)}
-.msg-inner .section-title{color:var(--cream)}
-.msg-inner .section-sub{color:rgba(250,247,242,.6);margin:0 auto 2rem}
-.msg-inner .acc-input{max-width:100%;margin-bottom:.8rem;display:block;text-align:left}
-.msg-send-btn{width:100%;padding:1rem;background:var(--gold);color:var(--white);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background .2s,transform .2s}
-.msg-send-btn:hover{background:var(--gold-light);transform:translateY(-2px)}
-#accResult{margin-top:1.2rem;font-size:.95rem;line-height:1.8}
-#accResult a{color:var(--gold-light)}
-.gloss-search{width:100%;max-width:420px;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.9rem;background:var(--cream);margin-bottom:2rem;outline:none}
-.gloss-search:focus{border-color:var(--gold)}
-#editModal,#sampleModal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.85);align-items:center;justify-content:center}
-.modal-box{background:var(--white);border-radius:16px;max-width:560px;width:94%;max-height:92vh;overflow-y:auto}
+#loginGate{position:fixed;inset:0;z-index:1050;background:radial-gradient(ellipse 60% 50% at 80% 15%,rgba(201,153,58,.18),transparent 65%),var(--cream);overflow:auto;display:grid;place-items:center}
+#loginGate.kg-off,#kgWelcome.kg-off{display:none!important}
+#lgCanvas{position:fixed;inset:0;pointer-events:none}
+.kg-wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;max-width:1100px;width:100%;padding:3rem 5% 5rem}
+.kg-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.2rem}
+.kg-title em{font-style:italic;color:var(--gold)}
+.kg-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:1.15rem;line-height:1.6;min-height:3.6rem;transition:opacity .5s}
+.kg-by{color:var(--gold);font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;margin:.3rem 0 1.6rem;transition:opacity .5s}
+.kg-form{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.6rem;box-shadow:0 20px 60px rgba(0,0,0,.08);position:relative}
+.kg-form::before{content:'';position:absolute;top:-1px;left:2rem;right:2rem;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:0 0 4px 4px}
+.kg-form label{display:block;font-size:.85rem;font-weight:600;margin-bottom:.4rem}
+.kg-in{width:100%;padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:8px;font:inherit;font-size:.95rem;background:var(--cream);outline:none;transition:border-color .2s,box-shadow .2s}
+.kg-in:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,153,58,.15)}
+.kg-btn{width:100%;margin-top:1rem;padding:1rem;background:var(--ink);color:var(--cream);border:none;border-radius:8px;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;transition:background .2s,transform .2s;position:relative;overflow:hidden}
+.kg-btn:hover{background:var(--gold);transform:translateY(-2px)}
+.kg-btn:disabled{opacity:.6;cursor:wait}
+.kg-msg{font-size:.85rem;margin-top:.8rem;min-height:1.2rem;color:#c0392b;line-height:1.5}
+.kg-perks{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.2rem}
+.kg-perk{background:rgba(201,153,58,.12);border:1px solid rgba(201,153,58,.3);color:var(--gold);padding:.35rem .9rem;border-radius:50px;font-size:.78rem;font-weight:600}
+.kg-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2.2rem;box-shadow:0 20px 60px rgba(0,0,0,.1);text-align:center;transition:transform .15s;position:relative}
+.kg-card::before{content:'';position:absolute;top:-1px;left:2rem;right:2rem;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:0 0 4px 4px}
+.kg-logo svg{width:100%;max-width:260px;height:auto;filter:drop-shadow(0 8px 14px rgba(201,153,58,.25))}
+.kg-cap{font-family:'Playfair Display',serif;font-weight:900;letter-spacing:.2em;font-size:.85rem;margin:.4rem 0 1.2rem}
+.kg-cap b{color:#2d7a4f}.kg-cap i{color:#c0392b;font-style:normal}
+.kg-foot{position:fixed;bottom:.8rem;left:0;right:0;text-align:center;font-size:.75rem;color:var(--muted);z-index:2}
+.kg-foot a{color:var(--gold);cursor:pointer;font-weight:700}
+#kgWelcome{position:fixed;inset:0;z-index:1060;background:radial-gradient(circle at 50% 35%,rgba(201,153,58,.25),transparent 60%),var(--cream);display:grid;place-items:center;text-align:center;padding:2rem;animation:kgIn .5s}
+#kgWelcome .kg-logo svg{max-width:340px;animation:kgPop .9s cubic-bezier(.2,1.4,.4,1)}
+#kgWelcome h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin:1rem 0 .4rem}
+#kgWelcome h2 em{color:var(--gold)}
+#kgWelcome p{color:var(--muted);margin-bottom:1.4rem}
+@keyframes kgIn{from{opacity:0}to{opacity:1}}
+@keyframes kgPop{from{transform:scale(.4) rotate(-6deg);opacity:0}to{transform:none;opacity:1}}
+.admin-tab{padding:.8rem .2rem;font-size:.7rem}
+.dv-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:.8rem 1rem;margin-bottom:.6rem}
+.dv-item.blk{border-color:rgba(231,76,60,.5)}
+.dv-row{display:flex;justify-content:space-between;gap:.5rem;align-items:center}
+.dv-btn{border:none;border-radius:6px;padding:.3rem .7rem;font:700 .72rem 'DM Sans',sans-serif;cursor:pointer;color:#fff;background:#c0392b}
+.dv-btn.alt{background:rgba(255,255,255,.15)}
+#modalBody img,#modalBody video{-webkit-user-drag:none;user-select:none}
+@media(max-width:900px){.kg-wrap{grid-template-columns:1fr;padding-top:2rem}.kg-card{display:none}}
 </style>
-</head>
-<body>
 
-<nav>
-  <a href="#" class="logo">Engineer<span>GBP</span></a>
-  <ul class="nav-links">
-    <li><a href="#profile">Profile</a></li>
-    <li><a href="#program">Program</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#quotes">Legends</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#contact" class="nav-cta">Enroll</a></li>
-  </ul>
-  <button class="mobile-menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-nav" id="mobileNav">
-  <a href="#profile" onclick="closeMenu()">Profile</a>
-  <a href="#program" onclick="closeMenu()">Program</a>
-  <a href="#education" onclick="closeMenu()">Education</a>
-  <a href="#glossary" onclick="closeMenu()">Glossary</a>
-  <a href="#quotes" onclick="closeMenu()">Legends</a>
-  <a href="#gallery" onclick="closeMenu()">Gallery</a>
-  <a href="#access" onclick="closeMenu()">Student Access</a>
-  <a href="#contact" class="m-cta" onclick="closeMenu()">📈 Enroll</a>
+<div id="loginGate">
+  <canvas id="lgCanvas"></canvas>
+  <div class="kg-wrap">
+    <div>
+      <div class="hero-badge">✦ Members Only · Free Access</div>
+      <h1 class="kg-title">Welcome to <em>KORIATA</em> WEBSITE</h1>
+      <p class="kg-quote" id="kgQuote"></p>
+      <div class="kg-by" id="kgBy"></div>
+      <div class="kg-form">
+        <label for="lg-email">Your email address</label>
+        <input class="kg-in" id="lg-email" type="email" autocomplete="email" placeholder="you@example.com">
+        <button class="kg-btn" id="lg-btn" onclick="kgLogin()">📈 Enter the Market</button>
+        <div class="kg-msg" id="lg-msg"></div>
+      </div>
+      <div class="kg-perks"><span class="kg-perk">📊 Real chart breakdowns</span><span class="kg-perk">📚 Full forex glossary</span><span class="kg-perk">🎓 12-week path</span><span class="kg-perk">🚫 No signals, only skill</span></div>
+    </div>
+    <div class="kg-card" id="kgCard">
+      <div class="kg-logo kg-logo-slot"></div>
+      <div class="kg-cap"><b>BULL ▲</b> &nbsp;·&nbsp; <i>BEAR ▼</i></div>
+      <div class="style-grid"><div class="style-chip">GBPUSD</div><div class="style-chip">GBPJPY</div></div>
+      <p style="color:var(--muted);font-size:.9rem;line-height:1.6">Bulls build. Bears teach. <b style="color:var(--ink)">Price decides.</b><br>Your seat is one email, one device.</p>
+    </div>
+  </div>
+  <div class="kg-foot">One email per device · Educational content only, not financial advice · <a onclick="openAdmin()">Admin</a></div>
 </div>
 
-<section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid">
-    <div class="hero-content">
-      <div class="hero-badge">✦ Raw Price Action Mentorship</div>
-      <h1>Read Raw Price.<br>Build the <em>Narrative.</em></h1>
-      <p>A serious 12-week program on GBPUSD and GBPJPY, built on supply and demand, imbalance and liquidity. No indicators. No signals. No shortcuts. Only the work.</p>
-      <div class="hero-btns">
-        <a href="#contact" class="btn-primary">📈 Enroll Now</a>
-        <a href="#profile" class="btn-outline">Meet Engineer GBP →</a>
-      </div>
-    </div>
-    <div class="hero-card fade-in">
-      <div class="card-title">Engineer GBP</div>
-      <div class="photo" id="profilePhoto">📈</div>
-      <div class="style-grid"><div class="style-chip">GBPUSD</div><div class="style-chip">GBPJPY</div></div>
-      <div class="card-stats">
-        <div class="stat"><span class="stat-num">12</span><span class="stat-label">Weeks</span></div>
-        <div class="stat"><span class="stat-num">3h</span><span class="stat-label">Daily Work</span></div>
-        <div class="stat"><span class="stat-num">20</span><span class="stat-label">Seats</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+<div id="kgWelcome" class="kg-off" onclick="kgCloseWelcome()">
+  <div><div class="kg-logo kg-logo-slot"></div>
+    <h2>Welcome, <em id="kgName"></em></h2>
+    <p>You are in. Let's read raw price together.</p>
+    <span class="btn-primary">Enter the website →</span></div>
+</div>
 
-<div class="citation-banner"><div class="ticker" id="ticker"></div></div>
-
-<section id="profile">
-  <div class="section-header" style="max-width:1200px;margin:0 auto 3.5rem;">
-    <div class="section-label">Profile</div>
-    <h2 class="section-title">Trader. Engineer.<br>Teacher of Raw Price.</h2>
-    <p class="section-sub">I am Engineer GBP. I teach one thing: reading price as it is, building a narrative from it, and trading that narrative with patience. Update this paragraph with your own story, years of experience and background.</p>
-  </div>
-  <div class="services-grid">
-    <div class="service-card fade-in"><div class="service-icon">🧭</div><h3>What I Teach</h3><p>Narrative creation from raw price action using supply and demand, imbalance and liquidity periods.</p></div>
-    <div class="service-card fade-in"><div class="service-icon">💷</div><h3>What I Trade</h3><p>Only GBPUSD and GBPJPY. Two pairs, studied deeply, instead of a market chased shallowly.</p></div>
-    <div class="service-card fade-in"><div class="service-icon">🚫</div><h3>What I Don't Do</h3><p>No indicators, no signals, no copy-trading, no profit promises and no shortcuts.</p></div>
-  </div>
-</section>
-
-<section id="program" class="pricing-bg">
-  <div style="max-width:1000px;margin:0 auto;text-align:center;">
-    <div class="section-label">Subscription</div>
-    <h2 class="section-title">One Program. One Fee.</h2>
-    <p class="section-sub" style="margin:0 auto 3.5rem;">Pay once. No monthly charges, no upsells. Finish the 12 weeks and you join the trading community.</p>
-    <div class="pricing-grid" style="max-width:440px;">
-      <div class="pricing-card featured fade-in">
-        <div class="featured-badge">12-Week Mentorship</div>
-        <div class="plan-name">Raw Price Program</div>
-        <div class="plan-desc">GBPUSD & GBPJPY narrative trading</div>
-        <div class="plan-price">$150 <span>/ one-time</span></div>
-        <ul class="plan-features">
-          <li>12 weeks, Monday to Friday, 9:00 AM EAT</li>
-          <li>3 hours a day: 1h live, 1.5h chart study, 0.5h journal</li>
-          <li>Technical, fundamental and psychology training</li>
-          <li>Trade reviews on your own charts</li>
-          <li>Lesson recordings and resources</li>
-          <li>Free community access after graduation</li>
-          <li>Only 20 seats per intake</li>
-        </ul>
-        <a href="#contact" class="plan-btn">Enroll Now</a>
-        <p style="font-size:.78rem;opacity:.55;margin-top:1rem;">No refunds after the first lesson. Fee, schedule and seats are placeholders; edit them in the page code.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="citations-bg" id="warning">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-header">
-      <div class="section-label" style="color:var(--gold-light);">Read This First</div>
-      <h2 class="section-title" style="color:var(--cream);">Not For Everyone.<br>On Purpose.</h2>
-      <p class="section-sub" style="color:rgba(250,247,242,.65);">This is education, not a shortcut. If you want signals, indicators or quick money, this program is not for you.</p>
-    </div>
-    <div class="citations-grid">
-      <div class="citation-card fade-in"><div class="cite-name">Not For You</div><div class="cite-full">If this sounds like you</div><div class="cite-desc">You want signals or entries to copy. You expect profits in weeks. You trade with indicators. You want to trade many pairs. You skip the work.</div></div>
-      <div class="citation-card fade-in"><div class="cite-name">For You</div><div class="cite-full">If this sounds like you</div><div class="cite-desc">You will study charts daily, keep a journal, accept losses as part of the business, and give GBPUSD and GBPJPY your full patience.</div><div class="cite-tags"><span class="cite-tag">Patience</span><span class="cite-tag">Discipline</span><span class="cite-tag">Work</span></div></div>
-    </div>
-  </div>
-</section>
-
-<section id="education">
-  <div class="section-header" style="max-width:1200px;margin:0 auto 3.5rem;">
-    <div class="section-label">Education System</div>
-    <h2 class="section-title">Five Pillars,<br>Every Term Defined</h2>
-    <p class="section-sub">Nothing is assumed. Every concept is explained plainly first, then practised on real charts.</p>
-  </div>
-  <div class="services-grid">
-    <div class="service-card fade-in"><div class="service-icon">🧱</div><h3>1. Market Basics</h3><p><b>What it is:</b> the foundation of forex. A <b>currency pair</b> shows how much of one currency buys another. A <b>pip</b> is the smallest standard price move, a <b>lot</b> is trade size, and <b>spread</b> is the broker's cost.</p><p><b>Why it matters:</b> you cannot manage risk without knowing these units.</p></div>
-    <div class="service-card fade-in"><div class="service-icon">📈</div><h3>2. Technical</h3><p><b>What it is:</b> reading <b>raw price action</b> with no indicators and building a <b>narrative</b>, the story of where price came from and where it is likely going.</p><p><b>You will learn:</b> market structure, supply and demand zones, imbalance, liquidity and liquidity periods.</p></div>
-    <div class="service-card fade-in"><div class="service-icon">🏦</div><h3>3. Fundamental</h3><p><b>What it is:</b> the reasons behind moves. Central banks (BoE, Fed, BoJ), interest rates, inflation, jobs data and risk sentiment.</p><p><b>Why it matters:</b> news explains the why, price confirms what the market is doing.</p></div>
-    <div class="service-card fade-in"><div class="service-icon">🛡️</div><h3>4. Risk Management</h3><p><b>What it is:</b> deciding how much you can lose before you trade. Risk per trade, <b>stop loss</b>, <b>risk-to-reward</b> and <b>drawdown</b>.</p><p><b>Why it matters:</b> it keeps you in the game long enough for your edge to show.</p></div>
-    <div class="service-card fade-in"><div class="service-icon">🧠</div><h3>5. Psychology</h3><p><b>What it is:</b> controlling fear, greed and <b>FOMO</b>. Thinking in probabilities, accepting losses and journaling every trade.</p><p><b>Why it matters:</b> most losses come from behaviour, not from analysis.</p></div>
-    <div class="service-card fade-in"><div class="service-icon">🧾</div><h3>Every Topic Is Taught In 5 Steps</h3><p>1. What it is. 2. Why it matters. 3. How to spot it on a chart. 4. The common mistake. 5. A practice task.</p></div>
-  </div>
-</section>
-
-<section class="pricing-bg" id="path">
-  <div style="max-width:1100px;margin:0 auto;text-align:center;">
-    <div class="section-label">The Journey</div>
-    <h2 class="section-title">Your 12-Week Path</h2>
-    <p class="section-sub" style="margin:0 auto 3.5rem;">Four stages, each with a clear outcome.</p>
-    <div class="process-grid">
-      <div class="process-step fade-in"><div class="step-num">1</div><h3>Weeks 1-3: Foundations</h3><p>Market basics, structure, sessions and risk rules.</p></div>
-      <div class="process-step fade-in"><div class="step-num">2</div><h3>Weeks 4-7: Narrative</h3><p>Supply, demand, imbalance and liquidity on GBPUSD and GBPJPY.</p></div>
-      <div class="process-step fade-in"><div class="step-num">3</div><h3>Weeks 8-10: Fundamentals & Mind</h3><p>BoE, Fed and BoJ drivers, plus psychology and journaling.</p></div>
-      <div class="process-step fade-in"><div class="step-num">4</div><h3>Weeks 11-12: Execution</h3><p>Live application, trade reviews, then graduation into the community.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="glossary">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-header"><div class="section-label">Glossary</div><h2 class="section-title">Trading Terms, Defined</h2><p class="section-sub">Search any term used on this site.</p></div>
-    <input class="gloss-search" id="glossSearch" placeholder="Search a term, e.g. liquidity" oninput="renderGloss()">
-    <div class="testimonials-grid" id="glossGrid"></div>
-  </div>
-</section>
-
-<section class="citations-bg" id="quotes">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-header"><div class="section-label" style="color:var(--gold-light);">Legends</div><h2 class="section-title" style="color:var(--cream);">Words From<br>Great Traders</h2></div>
-    <div class="citations-grid">
-      <div class="citation-card fade-in"><div class="cite-name">Mark Douglas</div><div class="cite-full">🏅 Author, Trading in the Zone</div><div class="cite-desc">"Anything can happen."</div><div class="cite-tags"><span class="cite-tag">Psychology</span></div></div>
-      <div class="citation-card fade-in"><div class="cite-name">George Soros</div><div class="cite-full">🏅 Famous 1992 trade against the pound</div><div class="cite-desc">"It's not whether you're right or wrong, but how much money you make when you're right and how much you lose when you're wrong."</div><div class="cite-tags"><span class="cite-tag">Risk</span><span class="cite-tag">GBP</span></div></div>
-      <div class="citation-card fade-in"><div class="cite-name">Paul Tudor Jones</div><div class="cite-full">🏅 Founder, Tudor Investment Corporation</div><div class="cite-desc">"Don't focus on making money; focus on protecting what you have."</div><div class="cite-tags"><span class="cite-tag">Defence</span></div></div>
-      <div class="citation-card fade-in"><div class="cite-name">Jesse Livermore</div><div class="cite-full">🏅 Legendary speculator</div><div class="cite-desc">"It never was my thinking that made the big money for me. It always was my sitting."</div><div class="cite-tags"><span class="cite-tag">Patience</span></div></div>
-      <div class="citation-card fade-in"><div class="cite-name">Ed Seykota</div><div class="cite-full">🏅 Featured in Market Wizards</div><div class="cite-desc">"Win or lose, everyone gets what they want out of the market."</div><div class="cite-tags"><span class="cite-tag">Responsibility</span></div></div>
-      <div class="citation-card fade-in"><div class="cite-name">Engineer GBP</div><div class="cite-full">🏅 Your mentor</div><div class="cite-desc">"Price tells the story. I only learn to read it."</div><div class="cite-tags"><span class="cite-tag">Price Action</span></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="testimonials-bg" id="books">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div class="section-header"><div class="section-label">Reading List</div><h2 class="section-title">Books To Read</h2></div>
-    <div class="testimonials-grid">
-      <div class="testimonial fade-in"><div class="stars">📖</div><p>Trading in the Zone, by Mark Douglas. Builds the mindset of thinking in probabilities.</p></div>
-      <div class="testimonial fade-in"><div class="stars">📖</div><p>The Disciplined Trader, by Mark Douglas. On controlling emotions and building habits.</p></div>
-      <div class="testimonial fade-in"><div class="stars">📖</div><p>Market Wizards, by Jack Schwager. Interviews that show how top traders think.</p></div>
-      <div class="testimonial fade-in"><div class="stars">📖</div><p>Reminiscences of a Stock Operator, by Edwin Lefèvre. A classic on patience and timing.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="gallery" class="portfolio-bg">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-header"><div class="section-label">Gallery</div><h2 class="section-title">Photos, Charts & Videos</h2><p class="section-sub">Chart breakdowns, class moments and lessons. Admin can upload files to each card.</p></div>
-    <div class="portfolio-grid" id="portfolioGrid"></div>
-  </div>
-</section>
-
-<section class="cta-section" id="community">
-  <div class="section-label">After Graduation</div>
-  <h2 class="section-title">Finish the Program.<br><em>Join the Community.</em></h2>
-  <p>Everyone who completes the 12 weeks joins our trading community free: shared analysis, weekly narrative reviews and accountability. We share reasoning, never signals. Every member owns their own trades, and no money is ever pooled.</p>
-  <div class="cta-btns"><a href="#contact" class="btn-primary">📈 Start the Program</a><a href="#access" class="btn-outline" style="color:var(--cream);border-color:rgba(250,247,242,.3);">🔑 Student Access</a></div>
-</section>
-
-<section id="contact">
-  <div class="contact-grid">
-    <div class="contact-info">
-      <div class="section-label">Enroll</div>
-      <h2>Begin Your<br>Application</h2>
-      <p>Enter your name and press the button. WhatsApp opens with your message ready, and I will reply with the payment details. After payment is confirmed you receive your access code.</p>
-      <div class="contact-item"><div class="contact-icon">💬</div><div><strong>WhatsApp</strong><span>+254 700 000 000</span></div></div>
-      <div class="contact-item"><div class="contact-icon">✈️</div><div><strong>Telegram</strong><a href="https://t.me/engineergbp" target="_blank">@engineergbp</a></div></div>
-      <div class="contact-item"><div class="contact-icon">📷</div><div><strong>Instagram</strong><a href="https://instagram.com/engineergbp" target="_blank">@engineergbp</a></div></div>
-    </div>
-    <div class="contact-form fade-in">
-      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:1.5rem;">Enroll in the Raw Price Program</div>
-      <div class="field"><label>Full Name (required)</label><input type="text" id="en-name" placeholder="Your full name"></div>
-      <div class="form-row">
-        <div class="field"><label>Country</label><input type="text" id="en-country" placeholder="e.g. Kenya"></div>
-        <div class="field"><label>Trading Experience</label><select id="en-exp"><option>Beginner</option><option>Intermediate</option><option>Experienced</option></select></div>
-      </div>
-      <label class="check"><input type="checkbox" id="en-ok"><span>I understand there are no signals, indicators or shortcuts, and I can commit 3 hours a day for 12 weeks.</span></label>
-      <button class="submit-btn" onclick="enroll()">💬 Continue to WhatsApp</button>
-    </div>
-  </div>
-</section>
-
-<section class="msg-section" id="access">
-  <div class="msg-inner">
-    <div class="section-label">Members</div>
-    <h2 class="section-title">Student & Graduate Access</h2>
-    <p class="section-sub">Enter your name and the code I sent you on WhatsApp to unlock your materials.</p>
-    <input class="acc-input" id="ac-name" placeholder="Your full name">
-    <input class="acc-input" id="ac-code" placeholder="Access code">
-    <button class="msg-send-btn" onclick="unlock()">🔑 Unlock</button>
-    <div id="accResult"></div>
-  </div>
-</section>
-
-<div id="sampleModal"><div class="modal-box" style="max-width:860px;"><div style="display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.8rem;border-bottom:1px solid var(--border);"><div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;" id="modalTitle">Preview</div><button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted);">✕</button></div><div id="modalBody" style="padding:1.5rem;min-height:300px;display:flex;align-items:center;justify-content:center;"></div></div></div>
-
-<div id="editModal"><div class="modal-box"><div style="height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-light));"></div><div style="padding:1.6rem 1.8rem;">
-  <div style="display:flex;justify-content:space-between;margin-bottom:1.4rem;"><div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;">✏️ Edit Gallery Card</div><button onclick="closeEditModal()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted);">✕</button></div>
-  <input type="hidden" id="edit-id">
-  <div class="field"><label>Title</label><input type="text" id="edit-title"></div>
-  <div class="field"><label>Type</label><select id="edit-type"><option>Photo</option><option>Chart Breakdown</option><option>Video</option><option>Class Moment</option><option>Other</option></select></div>
-  <div class="field"><label>Description</label><textarea id="edit-desc" style="min-height:80px;"></textarea></div>
-  <div class="field"><label>Tags (comma-separated)</label><input type="text" id="edit-tags"></div>
-  <div class="field"><label>Upload file (photo, PDF, MP4)</label><div style="border:2px dashed var(--border);border-radius:10px;padding:1.2rem;text-align:center;cursor:pointer;background:var(--cream);" onclick="document.getElementById('edit-file-input').click()"><div id="edit-file-name" style="font-size:.88rem;font-weight:600;">Click to choose a file</div></div><input type="file" id="edit-file-input" accept=".pdf,.jpg,.jpeg,.png,.webp,.mp4,.webm" style="display:none" onchange="pickFile(this)"></div>
-  <div style="display:flex;gap:.8rem;"><button onclick="closeEditModal()" style="flex:1;padding:.8rem;border:2px solid var(--border);background:transparent;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;">Cancel</button><button onclick="saveCardEdit()" style="flex:2;padding:.8rem;background:var(--ink);color:var(--cream);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;">✅ Save</button></div>
-</div></div></div>
-
-<a href="#" id="waBubble" target="_blank" class="wa-bubble" title="Chat on WhatsApp">💬</a>
-<button class="admin-fab" onclick="openAdmin()">🔐 Admin</button>
-
-<div id="adminPanel"><div class="admin-sidebar">
-  <div class="admin-header"><h2>⚙️ Admin Dashboard</h2><button class="admin-close" onclick="closeAdmin()">✕</button></div>
-  <div id="adminPinScreen" style="flex:1;display:flex;"><div class="admin-pin-wrap"><div style="font-size:2.5rem;">🔐</div><h3>Admin Access</h3><p>Enter your 4-digit PIN</p><input type="password" class="pin-input" id="pinInput" maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()"><div class="pin-error" id="pinError">Incorrect PIN. Try again.</div><button class="pin-btn" onclick="checkPin()">Unlock Dashboard</button></div></div>
-  <div id="adminDashboard" style="display:none;flex-direction:column;flex:1;">
-    <div class="admin-tabs"><button class="admin-tab active" onclick="switchTab('visitors',this)">👁 Visitors</button><button class="admin-tab" onclick="switchTab('orders',this)">📋 Enrollments</button><button class="admin-tab" onclick="switchTab('codes',this)">🎟 Access</button></div>
-    <div class="admin-body" id="tab-visitors"><div class="admin-stat-row"><div class="admin-stat"><span class="admin-stat-num" id="stat-total">0</span><div class="admin-stat-label">Total Visits</div></div><div class="admin-stat"><span class="admin-stat-num" id="stat-today">0</span><div class="admin-stat-label">Today</div></div><div class="admin-stat"><span class="admin-stat-num" id="stat-orders">0</span><div class="admin-stat-label">Enrollments</div></div><div class="admin-stat"><span class="admin-stat-num" id="stat-new">0</span><div class="admin-stat-label">Awaiting Reply</div></div></div><div class="admin-section-title">Recent Visitors</div><div id="visitorsList"></div></div>
-    <div class="admin-body" id="tab-orders" style="display:none;"><div class="admin-section-title">Enrollment Requests (tap to mark handled)</div><div id="ordersList"></div></div>
-    <div class="admin-body" id="tab-codes" style="display:none;"><div class="admin-section-title">Generate Access Code</div><p style="font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:1rem;line-height:1.5;">After confirming payment, type the student's name exactly as they entered it, then generate. Send the code on WhatsApp.</p><input class="acc-input" id="gen-name" placeholder="Student full name" style="max-width:100%;margin-bottom:.8rem;text-align:left"><div style="display:flex;gap:.6rem;"><button class="pin-btn" style="max-width:none" onclick="genCode('S')">Student code</button><button class="pin-btn" style="max-width:none" onclick="genCode('G')">Graduate code</button></div><div id="genResult" style="margin-top:1rem;font-size:1rem;font-weight:700;color:var(--gold-light);"></div></div>
-  </div>
-</div></div>
-
-<footer>
-  <div class="footer-grid">
-    <div><a href="#" class="logo">Engineer<span>GBP</span></a><p class="footer-desc">A 12-week price action mentorship on GBPUSD and GBPJPY. Supply and demand, imbalance, liquidity. No indicators, no signals.</p></div>
-    <div class="footer-col"><h4>Learn</h4><ul><li><a href="#education">Education</a></li><li><a href="#glossary">Glossary</a></li><li><a href="#books">Books</a></li><li><a href="#quotes">Legends</a></li></ul></div>
-    <div class="footer-col"><h4>Program</h4><ul><li><a href="#program">Fee & Schedule</a></li><li><a href="#warning">Who It's For</a></li><li><a href="#path">12-Week Path</a></li><li><a href="#community">Community</a></li></ul></div>
-    <div class="footer-col"><h4>Contact</h4><ul><li><a href="#contact">Enroll</a></li><li><a href="#access">Student Access</a></li><li><a href="https://t.me/engineergbp">Telegram</a></li><li><a href="https://instagram.com/engineergbp">Instagram</a></li></ul></div>
-  </div>
-  <p class="disclaimer">Risk disclaimer: trading forex carries a high risk of loss and is not suitable for everyone. ENGINEER GBP provides education only, not financial advice, signals or fund management. Past results do not guarantee future results. Trade only money you can afford to lose.</p>
-  <div class="footer-bottom"><p>© 2026 ENGINEER GBP. All rights reserved.</p><p>📍 Kenya | Students Worldwide</p></div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ── EDIT THESE ──
-const WA='254700000000', WA_ON=true, PHOTO_URL='', SALT='eg-2026-change-me', ADMIN_PIN='1234';
-const COMMUNITY_LINK='https://t.me/engineergbp', MATERIALS_LINK='https://youtube.com/@engineergbp';
-const SUPABASE_URL='https://ahaxjncndkkmfotzplmj.supabase.co';
-const SUPABASE_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoYXhqbmNuZGtrbWZvdHpwbG1qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NTU1NzIsImV4cCI6MjA4OTUzMTU3Mn0.2KaGB_RK-4_FkXGUzAf8ZYF27qELlRWVe74DUy7F24I';
-const db=supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
-const $=id=>document.getElementById(id);
-const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+(function(){
+const GATE=$('loginGate'),LS=window.localStorage;
+const LOGO='<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><g fill="#c9993a"><path d="M36 44Q62 32 88 44L82 72Q62 90 42 72Z"/><path d="M38 44Q12 42 14 12Q28 30 44 36Z"/><path d="M86 44Q112 42 110 12Q96 30 80 36Z"/></g><circle cx="52" cy="56" r="3" fill="#1a1a2e"/><circle cx="72" cy="56" r="3" fill="#1a1a2e"/><ellipse cx="62" cy="74" rx="10" ry="6" fill="#e8c97a"/><circle cx="58" cy="74" r="1.8" fill="#1a1a2e"/><circle cx="66" cy="74" r="1.8" fill="#1a1a2e"/><g fill="#1a1a2e"><circle cx="132" cy="30" r="10"/><circle cx="172" cy="30" r="10"/><circle cx="152" cy="55" r="27"/></g><ellipse cx="152" cy="65" rx="13" ry="10" fill="#e0d8cc"/><ellipse cx="152" cy="60" rx="5" ry="3.5" fill="#1a1a2e"/><circle cx="141" cy="48" r="3" fill="#faf7f2"/><circle cx="163" cy="48" r="3" fill="#faf7f2"/></svg>';
+document.querySelectorAll('.kg-logo-slot').forEach(e=>e.innerHTML=LOGO);
+document.body.style.overflow='hidden';
 
-// setup
-if(!WA_ON)$('waBubble').style.display='none'; else $('waBubble').href='https://wa.me/'+WA;
-if(PHOTO_URL)$('profilePhoto').innerHTML='<img src="'+PHOTO_URL+'" alt="Engineer GBP">';
-const tk=['GBPUSD','GBPJPY','Supply & Demand','Imbalance','Liquidity','Raw Price Action','No Indicators','No Signals'];
-$('ticker').innerHTML=tk.concat(tk).map(t=>'<div class="ticker-item">✦ <span>'+t+'</span></div>').join('');
-window.toggleMenu=()=>{$('menuBtn').classList.toggle('open');$('mobileNav').classList.toggle('open')};
-window.closeMenu=()=>{$('menuBtn').classList.remove('open');$('mobileNav').classList.remove('open')};
+// quotes
+const Q=[['It never was my thinking that made the big money for me. It always was my sitting.','Jesse Livermore'],['Don\'t focus on making money; focus on protecting what you have.','Paul Tudor Jones'],['Price tells the story. I only learn to read it.','Engineer GBP'],['The market rewards patience, not noise.','KORIATA'],['Two pairs. One narrative. Zero shortcuts.','KORIATA']];
+let qi=0;const qe=$('kgQuote'),be=$('kgBy');
+function showQ(){qe.style.opacity=be.style.opacity=0;setTimeout(()=>{qe.textContent='“'+Q[qi][0]+'”';be.textContent='— '+Q[qi][1];qe.style.opacity=be.style.opacity=1;qi=(qi+1)%Q.length},450)}
+showQ();setInterval(showQ,5500);
 
-// glossary
-const G=[['Forex','The market where one currency is traded for another.'],['Currency pair','Two currencies quoted together. GBPUSD shows how many US dollars one pound buys.'],['Pip','The smallest standard price move in a pair.'],['Lot','The size of a trade.'],['Spread','The difference between buy and sell price. It is the broker\'s cost.'],['Session','A period when a major market is open: Asia, London or New York.'],['Price action','Reading the movement of price itself, without indicators.'],['Narrative','The story price is telling: where it came from, where it is, where it may go.'],['Market structure','The pattern of highs and lows that shows whether buyers or sellers control.'],['Supply zone','An area where heavy selling pushed price down sharply. Price often reacts when it returns.'],['Demand zone','An area where heavy buying pushed price up sharply. Price often reacts when it returns.'],['Imbalance','A fast one-sided move that leaves little trading behind. Price often returns to rebalance it.'],['Liquidity','Clusters of resting orders, mainly stop losses above highs and below lows, that large players need to fill big positions.'],['Liquidity period','Times of day with heavy participation, such as session opens, when liquidity grabs are most likely.'],['Stop loss','The price where your trade idea is proven wrong and you exit.'],['Risk-to-reward','What you stand to gain compared with what you risk.'],['Drawdown','How far your account falls from its peak.'],['FOMO','Fear of missing out. It makes traders chase price and enter late.']];
-window.renderGloss=()=>{const q=$('glossSearch').value.toLowerCase();$('glossGrid').innerHTML=G.filter(g=>(g[0]+g[1]).toLowerCase().includes(q)).map(g=>'<div class="testimonial"><div class="reviewer-name" style="margin-bottom:.5rem;font-family:Playfair Display,serif;font-size:1.05rem;">'+g[0]+'</div><p style="font-style:normal;margin:0;">'+g[1]+'</p></div>').join('')||'<p>No matching term.</p>'};renderGloss();
+// candlestick background
+const cv=$('lgCanvas'),cx=cv.getContext('2d'),CW=26;let W,H,cs=[],off=0,my=.5,raf=0;
+function push(){const o=cs.length?cs[cs.length-1].c:H*.6,c=Math.min(H*.85,Math.max(H*.25,o+(Math.random()-.5)*60));cs.push({o,c,h:Math.min(o,c)-Math.random()*22,l:Math.max(o,c)+Math.random()*22})}
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;cs=[];for(let i=0;i<Math.ceil(W/CW)+2;i++)push()}
+function loop(){if(GATE.classList.contains('kg-off')){raf=0;return}
+ cx.clearRect(0,0,W,H);off+=.35;if(off>=CW){off-=CW;cs.shift();push()}const py=(my-.5)*24;
+ cs.forEach((k,i)=>{const x=i*CW-off,up=k.c<k.o;cx.strokeStyle=cx.fillStyle=up?'rgba(201,153,58,.38)':'rgba(26,26,46,.16)';cx.beginPath();cx.moveTo(x+CW/2,k.h+py);cx.lineTo(x+CW/2,k.l+py);cx.stroke();cx.fillRect(x+5,Math.min(k.o,k.c)+py,CW-10,Math.max(2,Math.abs(k.c-k.o)))});
+ raf=requestAnimationFrame(loop)}
+rs();addEventListener('resize',rs);
+GATE.addEventListener('mousemove',e=>{my=e.clientY/innerHeight;const c=$('kgCard'),r=(e.clientX/innerWidth-.5)*8,t=(.5-e.clientY/innerHeight)*8;c.style.transform='perspective(800px) rotateY('+r+'deg) rotateX('+t+'deg)'});
 
-// scroll fade
-const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
-document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+function hideGate(){GATE.classList.add('kg-off');document.body.style.overflow=''}
+function showGate(){GATE.classList.remove('kg-off');document.body.style.overflow='hidden';if(!raf)raf=requestAnimationFrame(loop)}
+raf=requestAnimationFrame(loop);
 
-// visit log
-(async()=>{const ua=navigator.userAgent,dev=/Mobi|Android/i.test(ua)?'Mobile':'Desktop';try{await db.from('visitors').insert([{created_at:new Date().toISOString(),device:dev,location:'Unknown',page:'Home',initials:dev[0]+'V',user_agent:ua.substring(0,80)}])}catch(e){}})();
+// device identity (browsers cannot read a MAC address; this is a device fingerprint)
+async function sha(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('').slice(0,24)}catch(e){return hash(s)+hash(s+'x')}}
+async function devId(){try{const s=LS.getItem('kd_dev');if(s)return s}catch(e){}
+ let c='';try{const k=document.createElement('canvas'),x=k.getContext('2d');x.font='14px Arial';x.fillText('KORIATA•GBP',2,12);c=k.toDataURL()}catch(e){}
+ const id='D'+await sha([navigator.userAgent,navigator.platform,screen.width+'x'+screen.height+'x'+screen.colorDepth,Intl.DateTimeFormat().resolvedOptions().timeZone,navigator.language,navigator.hardwareConcurrency,navigator.deviceMemory,c].join('|'));
+ try{LS.setItem('kd_dev',id)}catch(e){}return id}
+function devLabel(){const u=navigator.userAgent,os=/Windows/.test(u)?'Windows':/Android/.test(u)?'Android':/iPhone|iPad/.test(u)?'iOS':/Mac/.test(u)?'macOS':/Linux/.test(u)?'Linux':'Other',br=/Edg/.test(u)?'Edge':/OPR/.test(u)?'Opera':/Chrome/.test(u)?'Chrome':/Firefox/.test(u)?'Firefox':/Safari/.test(u)?'Safari':'Browser';return br+' on '+os}
 
-// gallery
-const GAL=[['📸','#f0e6d3,#e8d5b5','Photo','Profile & Studio','Photos of Engineer GBP and the trading desk.','Photo'],['📈','#dde8f0,#c5d9e8','Chart Breakdown','GBPUSD Narrative Breakdown','Zone, liquidity grab, entry and result.','GBPUSD, Narrative'],['💴','#e8f0dd,#d5e8c5','Chart Breakdown','GBPJPY Narrative Breakdown','Imbalance and liquidity on GBPJPY.','GBPJPY, Imbalance'],['🎓','#ede8f0,#d9d5e8','Class Moment','Live Class Session','A moment from a live London-session class.','Class'],['📓','#f0ede8,#e8ddd5','Other','Student Journal Example','A completed trade journal page.','Journal'],['🎬','#f0e8e8,#e8d5d5','Video','Video Lesson','A lesson recording on reading liquidity.','Video']];
-const meta={},titles=[];
-$('portfolioGrid').innerHTML=GAL.map((g,i)=>{titles[i]=g[3];return '<div class="portfolio-item fade-in visible"><div class="portfolio-thumb" style="background:linear-gradient(135deg,'+g[1]+');"><span class="thumb-emoji">'+g[0]+'</span><div class="thumb-overlay"><span onclick="viewSample('+i+')">View</span></div></div><div class="portfolio-body"><div class="p-type" id="ptype-'+i+'">'+g[2]+'</div><h3 id="ptitle-'+i+'">'+g[3]+'</h3><p id="pdesc-'+i+'">'+g[4]+'</p><div class="p-tags" id="ptags-'+i+'">'+g[5].split(',').map(t=>'<span class="p-tag">'+t.trim()+'</span>').join('')+'</div><div class="p-upload-row"><span class="p-upload-status" id="status-'+i+'">No file uploaded</span><button type="button" class="p-upload-btn adm-only" style="display:none" onclick="openEditModal('+i+')">✏️ Edit & Upload</button></div></div></div>'}).join('');
-let adminUnlocked=false,curFile=null;
-function showAdminBtns(){document.querySelectorAll('.adm-only').forEach(b=>b.style.display='')}
-window.openEditModal=id=>{$('edit-id').value=id;$('edit-title').value=$('ptitle-'+id).textContent;$('edit-type').value=$('ptype-'+id).textContent;$('edit-desc').value=$('pdesc-'+id).textContent;$('edit-tags').value=[...$('ptags-'+id).querySelectorAll('.p-tag')].map(t=>t.textContent).join(', ');curFile=null;$('edit-file-name').textContent=meta[id]?'✅ '+meta[id].file_name:'Click to choose a file';$('editModal').style.display='flex';document.body.style.overflow='hidden'};
-window.closeEditModal=()=>{$('editModal').style.display='none';document.body.style.overflow='';curFile=null};
-window.pickFile=i=>{if(i.files[0]){curFile=i.files[0];$('edit-file-name').textContent='✅ '+curFile.name}};
-window.saveCardEdit=async()=>{if(!adminUnlocked){alert('Admin only.');return}const id=+$('edit-id').value,title=$('edit-title').value.trim(),type=$('edit-type').value,desc=$('edit-desc').value.trim(),tags=$('edit-tags').value.trim();if(!title){alert('Enter a title.');return}
- try{let url=meta[id]?.file_url||null,name=meta[id]?.file_name||null;
-  if(curFile){const ext=curFile.name.split('.').pop(),path='card-'+id+'-'+Date.now()+'.'+ext;const{error:ue}=await db.storage.from('portfolio').upload(path,curFile,{upsert:true});if(ue)throw ue;url=db.storage.from('portfolio').getPublicUrl(path).data.publicUrl;name=curFile.name}
-  const{error}=await db.from('portfolio').upsert([{card_id:id,title,type,description:desc,tags,file_url:url,file_name:name,updated_at:new Date().toISOString()}],{onConflict:'card_id'});if(error)throw error;
-  meta[id]={file_url:url,file_name:name};applyCard(id,{title,type,description:desc,tags,file_name:name});closeEditModal()}catch(e){alert('Save failed: '+e.message)}};
-function applyCard(id,i){if(i.title){$('ptitle-'+id).textContent=i.title;titles[id]=i.title}if(i.type)$('ptype-'+id).textContent=i.type;if(i.description)$('pdesc-'+id).textContent=i.description;if(i.tags)$('ptags-'+id).innerHTML=i.tags.split(',').map(t=>'<span class="p-tag">'+esc(t.trim())+'</span>').join('');if(i.file_name){const s=$('status-'+id);s.textContent='✅ '+i.file_name;s.classList.add('ready')}}
-(async()=>{try{const{data}=await db.from('portfolio').select('*');(data||[]).forEach(i=>{if(i.card_id>=GAL.length)return;meta[i.card_id]={file_url:i.file_url,file_name:i.file_name};applyCard(i.card_id,i)})}catch(e){}})();
+// welcome
+function welcome(em){$('kgName').textContent=em.split('@')[0];$('kgWelcome').classList.remove('kg-off');clearTimeout(window._kw);window._kw=setTimeout(kgCloseWelcome,3800)}
+window.kgCloseWelcome=()=>$('kgWelcome').classList.add('kg-off');
+function ok(em){try{LS.setItem('kd_mail',em)}catch(e){}hideGate();welcome(em)}
+
+// login: one email <-> one device
+window.kgLogin=async()=>{const em=$('lg-email').value.trim().toLowerCase(),msg=$('lg-msg'),b=$('lg-btn');msg.style.color='#c0392b';
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){msg.textContent='Please enter a valid email address.';return}
+ b.disabled=true;msg.style.color='var(--muted)';msg.textContent='Checking your device…';
+ try{const dev=await devId(),now=new Date().toISOString();
+  const{data:d,error:e1}=await db.from('members').select('*').eq('device_id',dev).maybeSingle();if(e1)throw e1;
+  msg.style.color='#c0392b';
+  if(d){if(d.email!==em){msg.textContent='This device is already registered with a different email.';return}
+   if(d.blocked){msg.textContent='Access for this device has been disabled. Contact the admin.';return}
+   await db.from('members').update({last_login:now,login_count:(d.login_count||0)+1}).eq('id',d.id);return ok(em)}
+  const{data:m,error:e2}=await db.from('members').select('id').eq('email',em).maybeSingle();if(e2)throw e2;
+  if(m){msg.textContent='This email is already registered on another device.';return}
+  const{error:e3}=await db.from('members').insert([{email:em,device_id:dev,device_label:devLabel(),first_login:now,last_login:now}]);if(e3)throw e3;
+  ok(em)
+ }catch(e){msg.style.color='#c0392b';msg.textContent='Could not sign you in: '+(e.message||'network error')}finally{b.disabled=false}};
+$('lg-email').addEventListener('keydown',e=>{if(e.key==='Enter')kgLogin()});
+
+// returning member: re-verify (removed or blocked devices are kicked out)
+(async()=>{try{const em=LS.getItem('kd_mail');if(!em)return;const dev=await devId();
+ const{data}=await db.from('members').select('*').eq('device_id',dev).eq('email',em).maybeSingle();
+ if(data&&!data.blocked){db.from('members').update({last_login:new Date().toISOString(),login_count:(data.login_count||0)+1}).eq('id',data.id).then(()=>{});hideGate();welcome(em)}
+ else LS.removeItem('kd_mail')}catch(e){}})();
+
+// logout links
+const lo='<a href="#" onclick="kgLogout();return false">Logout</a>';
+document.querySelector('.nav-links').insertAdjacentHTML('beforeend','<li>'+lo+'</li>');$('mobileNav').insertAdjacentHTML('beforeend',lo);
+window.kgLogout=()=>{try{LS.removeItem('kd_mail')}catch(e){}$('lg-msg').textContent='';showGate()};
+
+// admin PIN also opens the site for the admin
+const _cp=window.checkPin;window.checkPin=()=>{_cp();if(adminUnlocked)hideGate()};
+
+// ── admin: devices + insights ──
+document.querySelector('.admin-tabs').insertAdjacentHTML('beforeend','<button class="admin-tab" onclick="switchTab(\'devices\',this)">💻 Devices</button><button class="admin-tab" onclick="switchTab(\'insights\',this)">📊 Insights</button>');
+$('tab-codes').insertAdjacentHTML('afterend',
+'<div class="admin-body" id="tab-devices" style="display:none"><div class="admin-stat-row"><div class="admin-stat"><span class="admin-stat-num" id="dv-total">0</span><div class="admin-stat-label">Registered devices</div></div><div class="admin-stat"><span class="admin-stat-num" id="dv-active">0</span><div class="admin-stat-label">Active (7 days)</div></div><div class="admin-stat"><span class="admin-stat-num" id="dv-new">0</span><div class="admin-stat-label">New today</div></div><div class="admin-stat"><span class="admin-stat-num" id="dv-blk">0</span><div class="admin-stat-label">Blocked</div></div></div>'+
+'<input class="acc-input" id="devSearch" placeholder="Search email or device…" oninput="drawDev()" style="max-width:100%;margin-bottom:.7rem;text-align:left;font-size:.9rem"><div style="display:flex;gap:.5rem;margin-bottom:1rem"><button class="dv-btn alt" onclick="devCSV()">⬇ Export CSV</button><button class="dv-btn" onclick="devPurge()">🧹 Remove inactive 30d+</button></div><div class="admin-section-title">Members &amp; devices</div><div id="devList"></div></div>'+
+'<div class="admin-body" id="tab-insights" style="display:none"><div id="insBox"></div></div>');
+let MEM=[];
+window.loadDevices=async()=>{const{data,error}=await db.from('members').select('*').order('last_login',{ascending:false});
+ if(error){$('devList').innerHTML='<div class="admin-empty"><div>⚠️</div><div>Table "members" not found. Run koriata-setup.sql in Supabase.</div></div>';return}MEM=data||[];drawDev()};
+window.drawDev=()=>{const q=$('devSearch').value.toLowerCase(),n=Date.now(),td=new Date().toDateString();
+ $('dv-total').textContent=MEM.length;$('dv-active').textContent=MEM.filter(m=>n-new Date(m.last_login)<6048e5).length;$('dv-new').textContent=MEM.filter(m=>new Date(m.first_login).toDateString()===td).length;$('dv-blk').textContent=MEM.filter(m=>m.blocked).length;
+ const L=MEM.filter(m=>(m.email+' '+m.device_label).toLowerCase().includes(q));
+ $('devList').innerHTML=L.length?L.map(m=>'<div class="dv-item '+(m.blocked?'blk':'')+'"><div class="dv-row"><div class="visitor-name" style="word-break:break-all">'+esc(m.email)+(m.blocked?' 🚫':'')+'</div></div><div class="visitor-meta">'+esc(m.device_label||'Device')+' · ID '+esc(String(m.device_id).slice(0,9))+'…</div><div class="visitor-meta">Joined '+new Date(m.first_login).toLocaleDateString()+' · Last seen '+new Date(m.last_login).toLocaleString([],{dateStyle:'short',timeStyle:'short'})+' · '+(m.login_count||1)+' logins</div><div class="dv-row" style="margin-top:.6rem;justify-content:flex-start"><button class="dv-btn alt" onclick="devBlock('+m.id+')">'+(m.blocked?'✅ Unblock':'⛔ Block')+'</button><button class="dv-btn" onclick="devRemove('+m.id+')">🗑 Remove device</button></div></div>').join(''):'<div class="admin-empty"><div>💻</div><div>No devices found</div></div>'};
+window.devRemove=async id=>{const m=MEM.find(x=>x.id===id);if(!m||!confirm('Remove '+m.email+' and its device? They can register again.'))return;const{error}=await db.from('members').delete().eq('id',id);if(error)alert(error.message);loadDevices()};
+window.devBlock=async id=>{const m=MEM.find(x=>x.id===id);if(!m)return;await db.from('members').update({blocked:!m.blocked}).eq('id',id);loadDevices()};
+window.devPurge=async()=>{if(!confirm('Remove every device not seen for 30+ days?'))return;await db.from('members').delete().lt('last_login',new Date(Date.now()-30*864e5).toISOString());loadDevices()};
+window.devCSV=()=>{const r=[['email','device','device_id','joined','last_login','logins','blocked']].concat(MEM.map(m=>[m.email,m.device_label,m.device_id,m.first_login,m.last_login,m.login_count,m.blocked]));
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([r.map(x=>x.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(',')).join('\n')],{type:'text/csv'}));a.download='members.csv';a.click()};
+window.loadInsights=async()=>{const box=$('insBox');box.innerHTML='<div class="admin-empty">Loading…</div>';
+ const[{data:v},{data:o},{data:m}]=await Promise.all([db.from('visitors').select('created_at,device').order('created_at',{ascending:false}).limit(2000),db.from('orders').select('deadline,citation').limit(500),db.from('members').select('first_login')]);
+ const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);return d}),cnt=(arr,f)=>days.map(d=>(arr||[]).filter(x=>new Date(x[f]).toDateString()===d.toDateString()).length);
+ const vc=cnt(v,'created_at'),mc=cnt(m,'first_login'),mx=Math.max(1,...vc),mob=(v||[]).filter(x=>x.device==='Mobile').length,tot=(v||[]).length||1;
+ const bars=(a,col)=>'<div style="display:flex;align-items:flex-end;gap:6px;height:120px;margin-bottom:1.4rem">'+a.map((n,i)=>'<div style="flex:1;text-align:center;font-size:.65rem;color:rgba(255,255,255,.5)"><b style="color:var(--cream)">'+n+'</b><div style="background:'+col+';height:'+Math.max(3,n/Math.max(1,...a)*80)+'px;border-radius:4px 4px 0 0;margin:2px 0"></div>'+days[i].toLocaleDateString([],{weekday:'short'})+'</div>').join('')+'</div>';
+ const ct={};(o||[]).forEach(x=>{const c=(x.deadline||'').trim();if(c)ct[c]=(ct[c]||0)+1});const top=Object.entries(ct).sort((a,b)=>b[1]-a[1]).slice(0,5);
+ box.innerHTML='<div class="admin-section-title">Visits, last 7 days</div>'+bars(vc,'var(--gold)')+'<div class="admin-section-title">New members, last 7 days</div>'+bars(mc,'#2d7a4f')+
+ '<div class="admin-section-title">Device split</div><div style="height:12px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin-bottom:.4rem"><div style="width:'+Math.round(mob/tot*100)+'%;height:100%;background:var(--gold)"></div></div><div class="visitor-meta" style="margin-bottom:1.4rem">Mobile '+Math.round(mob/tot*100)+'% · Desktop '+(100-Math.round(mob/tot*100))+'%</div>'+
+ '<div class="admin-section-title">Top enrollment countries</div>'+(top.length?top.map(t=>'<div class="visitor-item"><div class="visitor-info"><div class="visitor-name">'+esc(t[0])+'</div></div><div class="visitor-time">'+t[1]+'</div></div>').join(''):'<div class="admin-empty">No data yet</div>')};
+window.switchTab=(t,b)=>{document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');['visitors','orders','codes','devices','insights'].forEach(k=>$('tab-'+k).style.display=k===t?'block':'none');if(t==='devices')loadDevices();else if(t==='insights')loadInsights();else if(adminUnlocked)refresh()};
+
+// ── gallery viewer: view only, no download ──
 window.viewSample=id=>{$('modalTitle').textContent=titles[id];const m=meta[id],b=$('modalBody');
- if(!m||!m.file_url)b.innerHTML='<div style="text-align:center;color:var(--muted);"><div style="font-size:3rem;">📎</div><p>Nothing uploaded yet.</p></div>';
+ if(!m||!m.file_url)b.innerHTML='<div style="text-align:center;color:var(--muted)"><div style="font-size:3rem">📎</div><p>Nothing uploaded yet.</p></div>';
  else{const ext=(m.file_name||'').split('.').pop().toLowerCase(),u=m.file_url;
-  b.innerHTML=ext==='pdf'?'<iframe src="'+u+'" style="width:100%;height:520px;border:none;"></iframe>':['mp4','webm'].includes(ext)?'<video src="'+u+'" controls style="max-width:100%;max-height:520px;"></video>':['jpg','jpeg','png','webp'].includes(ext)?'<img src="'+u+'" style="max-width:100%;max-height:520px;border-radius:8px;">':'<a href="'+u+'" target="_blank">Download file</a>'}
+  b.innerHTML=ext==='pdf'?'<iframe src="'+u+'#toolbar=0&navpanes=0" style="width:100%;height:520px;border:none"></iframe>':['mp4','webm'].includes(ext)?'<video src="'+u+'" controls controlsList="nodownload noplaybackrate" disablePictureInPicture style="max-width:100%;max-height:520px"></video>':['jpg','jpeg','png','webp'].includes(ext)?'<div role="img" style="width:100%;height:520px;background:url('+u+') center/contain no-repeat"></div>':'<p style="color:var(--muted)">Preview not available.</p>'}
  $('sampleModal').style.display='flex';document.body.style.overflow='hidden'};
-window.closeModal=()=>{$('sampleModal').style.display='none';document.body.style.overflow=''};
-$('sampleModal').addEventListener('click',e=>{if(e.target===$('sampleModal'))closeModal()});
-
-// enroll → Supabase + WhatsApp
-window.enroll=async()=>{const name=$('en-name').value.trim();if(!name){alert('Please enter your full name.');$('en-name').focus();return}if(!$('en-ok').checked){alert('Please tick the confirmation box.');return}
- const country=$('en-country').value.trim(),exp=$('en-exp').value;
- try{await db.from('orders').insert([{name,contact:country,doc_type:'Raw Price Program ($150)',citation:exp,pages:'3 h/day',deadline:country,created_at:new Date().toISOString(),read:false}])}catch(e){}
- const msg='Hello, my name is '+name+(country?' from '+country:'')+'. I\'d like to enroll in the Raw Price Program ($150, one-time). Experience: '+exp+'. Please send me the payment details so I can complete my enrollment. I understand this program is for serious traders only, with no signals or shortcuts.';
- window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank')};
-
-// access codes (checked in the browser)
-function hash(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))>>>0;return h.toString(36).toUpperCase().padStart(6,'0').slice(0,6)}
-const code=(n,l)=>l+hash(n.trim().toLowerCase()+'|'+l+'|'+SALT);
-window.unlock=()=>{const n=$('ac-name').value.trim(),c=$('ac-code').value.trim().toUpperCase(),r=$('accResult');if(!n||!c){r.textContent='Enter your name and code.';return}
- if(c===code(n,'G').toUpperCase())r.innerHTML='🎓 Welcome, graduate. <br><a href="'+COMMUNITY_LINK+'" target="_blank">Join the trading community</a><br><a href="'+MATERIALS_LINK+'" target="_blank">Program materials</a>';
- else if(c===code(n,'S').toUpperCase())r.innerHTML='✅ Welcome, student.<br><a href="'+MATERIALS_LINK+'" target="_blank">Open program materials</a><br>Community opens when you graduate.';
- else r.textContent='Code not recognised. Check your name spelling and code.'};
-window.genCode=l=>{const n=$('gen-name').value.trim();if(!n){alert('Enter the student name.');return}$('genResult').textContent=(l==='G'?'Graduate':'Student')+' code for '+n+': '+code(n,l)};
-
-// admin
-window.openAdmin=()=>{$('adminPanel').style.display='flex';document.body.style.overflow='hidden';$('pinError').style.display='none';$('pinInput').value='';if(!adminUnlocked){$('adminPinScreen').style.display='flex';$('adminDashboard').style.display='none';setTimeout(()=>$('pinInput').focus(),100)}else showDashboard()};
-window.closeAdmin=()=>{$('adminPanel').style.display='none';document.body.style.overflow=''};
-$('adminPanel').addEventListener('click',e=>{if(e.target===$('adminPanel'))closeAdmin()});
-window.checkPin=()=>{if($('pinInput').value===ADMIN_PIN){adminUnlocked=true;showAdminBtns();showDashboard()}else{$('pinError').style.display='block';$('pinInput').value=''}};
-async function showDashboard(){$('adminPinScreen').style.display='none';$('adminDashboard').style.display='flex';await refresh()}
-async function refresh(){try{
- const{data:v}=await db.from('visitors').select('*').order('created_at',{ascending:false}).limit(50);const td=new Date().toDateString();
- $('stat-total').textContent=(v||[]).length;$('stat-today').textContent=(v||[]).filter(x=>new Date(x.created_at).toDateString()===td).length;
- $('visitorsList').innerHTML=(v&&v.length)?v.map(x=>{const d=new Date(x.created_at);return '<div class="visitor-item"><div class="visitor-avatar">'+esc(x.initials||'??')+'</div><div class="visitor-info"><div class="visitor-name">'+esc(x.device)+' · '+esc(x.page)+'</div></div><div class="visitor-time">'+d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+'</div></div>'}).join(''):'<div class="admin-empty"><div>👁</div><div>No visitors yet</div></div>';
- const{data:o}=await db.from('orders').select('*').order('created_at',{ascending:false}).limit(50);
- $('stat-orders').textContent=(o||[]).length;$('stat-new').textContent=(o||[]).filter(x=>!x.read).length;
- $('ordersList').innerHTML=(o&&o.length)?o.map(x=>'<div class="msg-item '+(x.read?'':'unread')+'" onclick="markRead('+x.id+',this)"><div class="msg-header"><div class="msg-from">'+(x.read?'':'<span class="msg-unread-dot"></span>')+esc(x.name)+'</div><div class="msg-time">'+new Date(x.created_at).toLocaleDateString()+'</div></div><div class="msg-subject">📄 '+esc(x.doc_type)+' · '+esc(x.citation)+'</div><div class="msg-body">Country: '+esc(x.deadline||'-')+'</div></div>').join(''):'<div class="admin-empty"><div>📋</div><div>No enrollments yet</div></div>'}catch(e){console.error(e)}}
-window.markRead=async(id,el)=>{try{await db.from('orders').update({read:true}).eq('id',id);el.classList.remove('unread');el.querySelector('.msg-unread-dot')?.remove()}catch(e){}};
-window.switchTab=(t,b)=>{document.querySelectorAll('.admin-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');['visitors','orders','codes'].forEach(k=>$('tab-'+k).style.display=k===t?'block':'none');if(adminUnlocked)refresh()};
+['sampleModal','portfolioGrid'].forEach(i=>$(i).addEventListener('contextmenu',e=>e.preventDefault()));
+})();
 </script>
-</body>
-</html>
+
+
+<!-- KORIATA SETUP SQL (inert text, not executed by the browser) -->
+<script type="text/plain" id="koriata-setup-sql">
+-- Run once in Supabase → SQL Editor
+create table if not exists members (
+  id bigint generated always as identity primary key,
+  email text not null unique,        -- one email = one row
+  device_id text not null unique,    -- one device = one row
+  device_label text,
+  blocked boolean not null default false,
+  login_count int not null default 1,
+  first_login timestamptz not null default now(),
+  last_login timestamptz not null default now()
+);
+alter table members enable row level security;
+create policy "members anon access" on members for all to anon using (true) with check (true);
+
+</script>
